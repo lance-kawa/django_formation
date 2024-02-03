@@ -5,7 +5,18 @@
     <h2 class="text-2xl font-bold mb-6">Ajouter une nouvelle observation</h2>
     <form method="post" class="space-y-4">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% for field in form %}
+            <div class="py-2">
+                <label for="{{ field.id_for_label }}" class="block font-medium text-gray-700">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                    <p class="mt-1 text-sm text-gray-500">{{ field.help_text }}</p>
+                {% endif %}
+                {% for error in field.errors %}
+                    <p class="text-sm text-red-600">{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
         <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Ajouter</button>
         <a href="{% url 'projet_list' %}" class="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400">Annuler</a>
     </form>
