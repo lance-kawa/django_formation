@@ -1,0 +1,40 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faunatrack</title>
+    <!-- Lien CDN pour Tailwind CSS pour une intégration simple -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <header class="bg-white shadow">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <a class="text-gray-800 text-xl font-bold" href="{% url 'home' %}">Accueil</a>
+                <div class="flex gap-4">
+                    <a class="text-gray-800 hover:text-gray-600" href="{% url 'projet_list' %}">Projets</a>
+                    <a class="text-gray-800 hover:text-gray-600" href="{% url 'admin:index' %}">Admin</a>
+                    <!-- Ajoutez d'autres liens de navigation ici -->
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 mt-4 h-screen">
+        {% block content %}
+        <!-- Le contenu spécifique à chaque page viendra ici -->
+        {% endblock %}
+    </main>
+
+    <footer class="bg-white shadow mt-8 py-4">
+        <div class="container mx-auto px-6 text-center">
+            <span class="text-gray-700 text-sm">Pied de page de mon application Django.</span>
+        </div>
+    </footer>
+
+</body>
+</html>

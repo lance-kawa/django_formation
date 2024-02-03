@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-xl mx-auto py-10">
+    <h2 class="text-2xl font-bold mb-6">Êtes-vous sûr de vouloir supprimer ce projet ?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Supprimer</button>
+        <a href="{% url 'projet_list' %}" class="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400">Annuler</a>
+    </form>
+</div>
+{% endblock %}

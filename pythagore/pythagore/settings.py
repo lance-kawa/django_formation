@@ -57,6 +57,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
+            BASE_DIR / "faunatrack" / "templates" # Ajout du dossier templates de l'application faunatrack
         ],
         'APP_DIRS': True,
         'OPTIONS': {
