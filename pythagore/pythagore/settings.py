@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 # Application definition
 
 INSTALLED_APPS = [
@@ -56,7 +58,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / "faunatrack" / "templates" # Ajout du dossier templates de l'application faunatrack
+            BASE_DIR / "faunatrack" / "templates", # Ajout du dossier templates de l'application faunatrack
+            BASE_DIR / "pythagore" / "templates", # Ajout du dossier templates pour le projet
         ],
         'APP_DIRS': True,
         'OPTIONS': {

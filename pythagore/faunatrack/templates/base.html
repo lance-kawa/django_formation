@@ -17,10 +17,18 @@
     <header class="bg-white shadow">
         <nav class="container mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
-                <a class="text-gray-800 text-xl font-bold" href="{% url 'home' %}">Accueil</a>
+                <a class="text-gray-800 text-xl font-bold" href="{% url 'home' %}">Accueil{% if request.user.is_authenticated %} Hello {{user}}{% endif %} </a>
                 <div class="flex gap-4">
                     <a class="text-gray-800 hover:text-gray-600" href="{% url 'projet_list' %}">Projets</a>
                     <a class="text-gray-800 hover:text-gray-600" href="{% url 'admin:index' %}">Admin</a>
+                    {% if request.user.is_authenticated %}
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit">Logout</button>
+                        </form>
+                    {% else %}
+                    <a class="text-gray-800 hover:text-gray-600" href="{% url 'login' %}">Login</a>
+                    {% endif %}
                     <!-- Ajoutez d'autres liens de navigation ici -->
                 </div>
             </div>
