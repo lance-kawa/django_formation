@@ -9,6 +9,8 @@
     <title>Faunatrack</title>
     <!-- Lien CDN pour Tailwind CSS pour une intégration simple -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Lien vers le fichier CSS de l'application -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body class="bg-gray-100">
     <header class="bg-white shadow">
@@ -26,7 +28,7 @@
 
     <main class="container mx-auto px-6 mt-4 h-screen">
         {% block content %}
-        <!-- Le contenu spécifique à chaque page viendra ici -->
+            <p id="welcome">Bienvenue sur FaunaTrack !</p>
         {% endblock %}
     </main>
 
