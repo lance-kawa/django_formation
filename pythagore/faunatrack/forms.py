@@ -14,7 +14,7 @@ class FaunaTrackForm(forms.ModelForm):
 class ProjetForm(FaunaTrackForm):
     class Meta:
         model = Projet
-        fields = ['titre', 'description', 'document', 'responable']
+        fields = ['titre', 'description', 'document', 'responsable']
 
 
 class ObservationForm(FaunaTrackForm):

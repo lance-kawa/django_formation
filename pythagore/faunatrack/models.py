@@ -35,7 +35,7 @@ class Observation(models.Model):
         return f"{self.espece.nom_commun} observée à {self.nom} le {self.date_observation}"
 
 class Projet(models.Model):
-    responable = models.ForeignKey(Scientifique, null=True, blank=True, on_delete=models.SET_NULL, related_name="projet", verbose_name="Responsable")
+    responsable = models.ForeignKey(Scientifique, null=True, blank=True, on_delete=models.SET_NULL, related_name="projet", verbose_name="Responsable")
     titre = models.CharField(max_length=200, verbose_name="Titre")
     description = models.TextField(verbose_name="Description")
     document = models.FileField(upload_to='faunatrack/static/documents_projets/', blank=True, null=True, verbose_name="Documents")
