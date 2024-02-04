@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', fauna_views.hello_world, name='home'),
     path('faunatrack/', include('faunatrack.urls')),
+
 ]

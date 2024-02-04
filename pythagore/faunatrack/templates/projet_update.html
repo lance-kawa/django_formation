@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <div class="max-w-xl mx-auto py-10">
-    <h2 class="text-2xl font-bold mb-6">Éditer le projet</h2>
+    <h2 class="text-2xl font-bold mb-6">Éditer le projet {{ projet }}</h2>
     <form method="post" class="space-y-4">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Sauvegarder</button>
         <a href="{% url 'projet_list' %}" class="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400">Annuler</a>
-        <a href="{% url 'observation_create' %}" class="ml-3 inline-flex items-center px-4 py-2 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 active:bg-green-700 focus:outline-none focus:border-green-700 focus:ring focus:ring-green-300 disabled:opacity-25 transition">Créer une observation</a>
+        <a href="{% url 'observation_create' projet_id=projet.id %}" class="ml-3 inline-flex items-center px-4 py-2 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 active:bg-green-700 focus:outline-none focus:border-green-700 focus:ring focus:ring-green-300 disabled:opacity-25 transition">Créer une observation</a>
 
     </form>
 </div>
