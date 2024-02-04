@@ -1,35 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="flex justify-between items-center pb-4">
-        <h1 class="text-xl font-semibold">Liste des Projets</h1>
-        <a href="{% url 'projet_create' %}" class="px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600">Créer un Projet</a>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {% for projet in object_list %}
-        <div class="bg-white overflow-hidden shadow rounded-lg">
-            <div class="p-6">
-                <h2 class="font-semibold text-lg mb-2">{{ projet.titre }}</h2>
-                <p class="text-gray-700 text-sm mb-4">{{ projet.description|truncatechars:100 }}</p>
-                <ul>
-                {% for observation in projet.observations.all %}
-                    <li> {{ observation }} </li>
-                {% endfor %}
-                </ul>
-                    
-                
-                <div class="mt-4 flex items-center justify-between">
-                    <div class="flex space-x-2">
-                        <a href="{% url 'projet_update' projet.id %}" class="px-2 py-1 bg-blue-500 text-white text-xs font-semibold rounded hover:bg-blue-600">Éditer</a>
-                        <a href="{% url 'projet_delete' projet.id %}" class="px-2 py-1 bg-red-500 text-white text-xs font-semibold rounded hover:bg-red-600">Supprimer</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% empty %}
-        <p>Aucun projet trouvé.</p>
+
+<h1>Liste des Projets</h1>
+<a href="{% url 'projet_create' %}" class="text-blue-500">Créer un Projet</a>
+<div class="my-4">
+    {% for projet in object_list  %}
+        <h2>{{ projet.titre }}</h2>
+        <p>{{ projet.description }}</p>
+        <ul>
+        {% for observation in projet.observations.all %}
+            <li> {{ observation }} </li>
         {% endfor %}
-    </div>
+        </ul>
+    {% empty %}
+        <p>Aucun projet trouvé.</p>
+    {% endfor %}
+    <h2></h2>
 </div>
 {% endblock %}
