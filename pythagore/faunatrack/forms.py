@@ -3,13 +3,21 @@ from django.utils import timezone
 from .models import Projet, Observation
 
 
-class ProjetForm(forms.ModelForm):
+class FaunaTrackForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(FaunaTrackForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'border rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5'
+
+
+class ProjetForm(FaunaTrackForm):
     class Meta:
         model = Projet
         fields = ['titre', 'description', 'document', 'responable']
 
 
-class ObservationForm(forms.ModelForm):
+class ObservationForm(FaunaTrackForm):
     class Meta:
         model = Observation
         fields = ['nom', 'espece', 'latitude', 'longitude', 'date_observation', 'quantite', 'notes']
@@ -17,7 +25,6 @@ class ObservationForm(forms.ModelForm):
             'date_observation': forms.widgets.DateInput( 
                 attrs={
                     'type': 'date',
-                    'class': 'border rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5',
                 }
             ),
         }
@@ -26,11 +33,6 @@ class ObservationForm(forms.ModelForm):
         help_text="Nombre d'individus observés",
         min_value=1,
         max_value=1000,
-        widget=forms.widgets.NumberInput(
-            attrs={
-                'class': 'border rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5',
-            }
-        )
     )
 
     def clean_date_observation(self):

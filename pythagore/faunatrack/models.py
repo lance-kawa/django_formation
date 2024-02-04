@@ -23,7 +23,7 @@ class Espece(models.Model):
 
 class Observation(models.Model):
     nom = models.CharField(max_length=200, verbose_name="Nom")
-    espece = models.ForeignKey(Espece, related_name='observations', on_delete=models.CASCADE, verbose_name="Espèce")
+    espece = models.ForeignKey(Espece, related_name='observations', on_delete=models.CASCADE, verbose_name="Espèce", help_text="Nom de l'espèce observée")
     latitude = models.DecimalField(max_digits=9, decimal_places=6, verbose_name="Latitude", validators=[validate_latitude])
     longitude = models.DecimalField(max_digits=9, decimal_places=6, verbose_name="Longitude", validators=[validate_longitude])
     date_observation = models.DateField(verbose_name="Date d'observation")
