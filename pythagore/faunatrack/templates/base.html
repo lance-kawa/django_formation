@@ -19,9 +19,9 @@
             <div class="flex justify-between items-center">
                 <a class="text-gray-800 text-xl font-bold" href="{% url 'home' %}">Accueil{% if request.user.is_authenticated %} Hello {{user}}{% endif %} </a>
                 <div class="flex gap-4">
-                    <a class="text-gray-800 hover:text-gray-600" href="{% url 'projet_list' %}">Projets</a>
-                    <a class="text-gray-800 hover:text-gray-600" href="{% url 'admin:index' %}">Admin</a>
                     {% if request.user.is_authenticated %}
+                    <a class="text-gray-800 hover:text-gray-600" href="{% url 'admin:index' %}">Admin</a>
+                    <a class="text-gray-800 hover:text-gray-600" href="{% url 'projet_list' %}">Projets</a>
                         <form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
                             <button type="submit">Logout</button>
