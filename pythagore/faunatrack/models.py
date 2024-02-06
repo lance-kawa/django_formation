@@ -1,6 +1,6 @@
 from django.db import models
 from django.forms import ValidationError
-
+from django.utils.text import slugify
 from faunatrack.validators import validate_latitude, validate_longitude
 
 class Scientifique(models.Model):
@@ -13,6 +13,7 @@ class Scientifique(models.Model):
 class Espece(models.Model):
     nom_commun = models.CharField(max_length=250, verbose_name="Nom commun")
     nom_scientifique = models.CharField(max_length=250, blank=True, default="", verbose_name="Nom scientifique")
+    status = models.CharField(choices=[("DANGER", "En danger"), ("SAIN", "Hors de danger")], max_length=250)
 
     def clean(self):
         if Espece.objects.filter(nom_commun=self.nom_commun).exists():
@@ -41,6 +42,12 @@ class Projet(models.Model):
     document = models.FileField(upload_to='faunatrack/static/documents_projets/', blank=True, null=True, verbose_name="Documents")
     date_creation = models.DateTimeField(auto_now_add=True, verbose_name="Date de création")
     observations = models.ManyToManyField(Observation, related_name="projets", verbose_name="Observations")
+    slug = models.SlugField(blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.titre)
+        super().save(*args, **kwargs)
+
 
     def __str__(self):
         return self.titre

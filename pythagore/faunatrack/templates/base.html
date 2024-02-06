@@ -36,6 +36,13 @@
     </header>
 
     <main class="container mx-auto px-6 mt-4 min-h-screen">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         {% block content %}
         <!-- Le contenu spécifique à chaque page viendra ici -->
         {% endblock %}
