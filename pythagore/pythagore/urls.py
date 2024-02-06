@@ -18,10 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from faunatrack import views as fauna_views
 
+from rest_framework.routers import DefaultRouter
+from faunatrack.api_view import EspeceViewSet
+# Crée un routeur et enregistre nos viewsets avec lui.
+router = DefaultRouter()
+router.register(r'especes', EspeceViewSet)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', fauna_views.hello_world, name='home'),
     path('faunatrack/', include('faunatrack.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-
+    path('api/', include(router.urls)),
 ]

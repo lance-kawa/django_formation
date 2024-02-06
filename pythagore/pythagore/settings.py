@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_extensions', # Ajout de django-extensions
     'faunatrack', # Ajout de faunatrack, notre première application
     'import_export',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
