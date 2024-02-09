@@ -1,6 +1,6 @@
 # Django Formation
 
-[Lien git du projet][https://github.com/lance-kawa/django_formation]
+[Lien git du projet](https://github.com/lance-kawa/django_formation)
 
 
 Ce projet est un support de cours pour les formations Django que je réalise.
@@ -58,10 +58,11 @@ En utilisant Docker vous devez précisez le nom du conteneur qui contient votre 
 
 ## Lien utiles 
 
-- GitHub Formatteur: https://github.com/orgs/lance-kawa/repositories
-- Documentations Django: https://docs.djangoproject.com/fr/5.0/
-- ORM Django : (Query)[https://docs.djangoproject.com/fr/5.0/topics/db/queries/], (API)[https://docs.djangoproject.com/fr/5.0/ref/models/querysets]
-- Tailwind : https://tailwindcss.com/docs/container
+- [GitHub Formatteur](https://github.com/orgs/lance-kawa/repositories)
+- [Documentations Django](https://docs.djangoproject.com/fr/5.0/)
+- [Django ORM Query](https://docs.djangoproject.com/fr/5.0/topics/db/queries/)
+- [Django ORM API](https://docs.djangoproject.com/fr/5.0/ref/models/querysets)
+- [Tailwind Docs](https://tailwindcss.com/docs/container)
 
 
 
