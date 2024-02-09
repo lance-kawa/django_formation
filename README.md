@@ -1,6 +1,6 @@
 # Django Formation
 
-(Lien git du projet)[https://github.com/lance-kawa/django_formation]
+[Lien git du projet][https://github.com/lance-kawa/django_formation]
 
 
 Ce projet est un support de cours pour les formations Django que je réalise.
