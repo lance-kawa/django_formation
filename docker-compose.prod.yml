@@ -1,0 +1,75 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    restart: always
+    container_name: postgres
+    volumes:
+      - postgres_db_data:/var/lib/postgresql/data
+    environment:
+    - POSTGRES_USER=${POSTGRES_USER}
+    - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    - POSTGRES_DB=${POSTGRES_DB}
+    healthcheck:
+      interval: 10s
+      retries: 10
+      test: "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""
+      timeout: 2s
+    expose:
+      - 5432
+    networks:
+      - backend
+
+  django:
+    build: .
+    restart: always
+    container_name: django
+    env_file:
+      - ./.env
+    volumes:
+      - static_volume:/app/portfolio/static
+    depends_on:
+      - postgres
+    expose:
+      - 8000
+    networks:
+      - backend
+
+  nginx:
+    image: nginx:alpine
+    restart: always
+    container_name: nginx
+    volumes:
+      - static_volume:/app/static
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - certbot_www:/var/www/certbot
+      - certbot_conf:/etc/nginx/ssl/:ro
+    depends_on:
+      - django
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - backend
+
+# Certbot container pour générer et renouveler vos certificats SSL
+# command : docker exec -ti certbot certonly --webroot --webroot-path=/var/www/certbot --email ${EMAIL} --agree-tos --no-eff-email -d ${DOMAIN}
+# command : docker exec -ti certbot renew
+# Vous pouvez ajouter dans une crontab (par exemple) : 0 0 * * * docker exec -ti certbot renew
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot_www:/var/www/certbot:rw
+      - certbot_conf:/etc/letsencrypt/:rw
+
+volumes:
+  postgres_db_data:
+    name: postgres_db_data
+  static_volume:
+  certbot_www:
+  certbot_conf:
+
+networks:
+  backend:

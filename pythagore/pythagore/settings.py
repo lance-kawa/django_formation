@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
+import os 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,16 +22,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+9i8cq-bfmna0q)8om+2os7ev)e=&s9h#f9akvt8!q-zv%xgi_'
+SECRET_KEY = os.getenv('SECRET_KEY', 'insecure_secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if os.getenv('ENV', 'development') == 'development' else False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1').split(' ')
+
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://127.0.0.1').split(' ')
+
+# Lorsque votre backend et votre frontend se trouve sur le même serveur
+# CORS_ORIGIN_ALLOW_ALL = True 
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -40,9 +46,33 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions', # Ajout de django-extensions
     'faunatrack', # Ajout de faunatrack, notre première application
-    'import_export',
-    'rest_framework',
+    'import_export', # pip install django-import-export
+    'rest_framework', # pip install djangorestframework
+    'rest_framework.authtoken',  # NE PAS OUBLIER DE FAIRE LA MIGRATION
+    'dj_rest_auth', # pip install dj-rest-auth
+    
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    ]
+}
+
+REST_AUTH = {
+    'USE_JWT': True,
+    'JWT_AUTH_COOKIE': 'pythagore-auth',
+    'JWT_AUTH_REFRESH_COOKIE': 'pythagore-refresh-token',
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
